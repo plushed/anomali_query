@@ -8,6 +8,8 @@ import os.path
 VERSION = "0.1"
 
 # Banner
+
+
 def banner():
     banner = '''
                                     _ _                           _     
@@ -19,7 +21,8 @@ def banner():
     print(banner)
     print("**********************Anomali Intel Search -v" + VERSION + "**************************")
     # Usage
-
+    
+    
 def usage():
         usage = """
         -h --help       Prints this help
@@ -50,6 +53,8 @@ def usage():
 #####################################
         # Anomali Search #
 #####################################
+
+
 def anomali_search():
     # Assign variables to arguments parsed
     outfile = args.o
@@ -140,6 +145,8 @@ def anomali_search():
             except SystemError:
                 print("Failed to query.")
     print("-------------Results returned in " + outfile + "----------------")
+    
+    
 if __name__ == '__main__':
     banner()
     usage()
