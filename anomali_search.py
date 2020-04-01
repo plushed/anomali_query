@@ -1,4 +1,3 @@
-
 import argparse
 import sys
 import requests
@@ -6,7 +5,6 @@ import csv
 import configparser
 import os.path
 VERSION = "0.1"
-
 
 # Banner
 def banner():
@@ -52,22 +50,24 @@ def usage():
         # Anomali Search #
 #####################################
 def anomali_search():
+    # Assign variables to arguments parsed
     outfile = args.o
     infile = args.f
     limit = args.l
     status = args.s
     conf = args.c
 
-    # Config file function call
+    # Config file processing & analysis
     if os.path.exists(args.c):
-        # Config file processing & analysis
         try:
             config = configparser.ConfigParser()
             config.read(conf)
             # config.sections()
+            # Assigned Anomali variables
             anomali_api = config.get('ANOMALI', 'api_key')
             anomali_user = config.get('ANOMALI', 'user')
             anomali_url = config.get('ANOMALI', 'api_url')
+            # Assigned proxy variables
             proxy = config.get('PROXY', 'proxy')
             proxy_user = config.get('PROXY', 'username')
             proxy_password = config.get('PROXY', 'password')
@@ -77,7 +77,8 @@ def anomali_search():
     else:
         print("No such file '{}'".format(conf), file=sys.stderr)
         exit()
-
+        
+    # Assign keywords to IOC list
     if args.k:
         try:
             # If more than one search word
