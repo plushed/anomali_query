@@ -34,6 +34,7 @@ def usage():
         -f --infile     Search a list of keywords or IOCs in a file
         -k --keyword    Specify the keyword you wish to search if a list is not used
         -o --outfile    Specify the output file, otherwise output to results.csv
+        -g --graph      Display exported data in a graph
         
         --------------------------Search Methods----------------------------
         -v --value      Search specific keywords or IOCs     
@@ -153,7 +154,8 @@ def anomali_search():
                 print("Failed to query.")
     print("\n -------------Results returned in " + outfile + "----------------")
     # Send data for visualizations
-    vis(outfile)
+    if args.g:
+        vis(outfile)
 
 #####################################
     # Graphing and all that Jazz #
@@ -178,6 +180,7 @@ if __name__ == '__main__':
     group_creation.add_argument('-k', '--keyword', help='Keyword search if list is not used', nargs='?', dest="k")
     group_creation.add_argument('-c', '--config', help='Config File', nargs='?', const='./conf/example.conf', required=True, dest="c")
     group_creation.add_argument('-o', '--outfile', help='Output File - defaults to results.csv', nargs='?',default='./results.csv', dest="o")
+    group_creation.add_argument('-g', '--graph', help='Display results in graph', action='store_true', dest="g")
     group_creation.add_argument('-w', '--w', help='Use wildcard search for a more comprehensive search.  If not specified the search will query for the exact value(s)', action='store_true', dest="w")
     group_creation.add_argument('-l', '--limit', help='Specify the max results you wish to return. Default is no limit.', default='0',dest="l", type=int)
     group_creation.add_argument('-s', '--status',help='Return only certain indicators. Options are active, inactive and falsepos. Default is all.',choices=['active', 'inactive', 'falsepos', ''], default='', dest="s")
