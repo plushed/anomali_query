@@ -102,14 +102,16 @@ def anomali_search():
         for item in ioc_list:
             # Define search string based on type
             if args.w:
-                search_string = "&value__regexp=.*." + item + "*"
+                search_string = "&value__regexp=.*." + item + ".*"
             elif args.t:
-                search_string = "&tag="
+                search_string = "&tag=" + item
             else:
-                search_string = "&value="
+                search_string = "&value=" + item
             try:
                 url = requests.get(
-                anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + search_string + item + "&limit=" + str(
+                anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + search_string + "&limit=" + str(
+                limit) + "&status=" + status)
+                print(anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + search_string + "&limit=" + str(
                 limit) + "&status=" + status)
                 with url as result:
                     if result.status_code == 200:
@@ -126,7 +128,7 @@ def anomali_search():
                                 obj['status'],obj['tags']])
                                 item = item.replace("http", "hxxp")
                                 print("\n" + "-" * 50)
-                                print("[!] Records located for " + item)
+                                print("[!] Records located for " + obj['value'])
                                 print("-" * 50)
                     else:
                         print(
@@ -153,4 +155,3 @@ if __name__ == '__main__':
     search_type.add_argument('-t', '--tag', help='Search tags', action='store_true', dest="t")
     args = parser.parse_args()
     anomali_search()
-
