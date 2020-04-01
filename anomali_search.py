@@ -91,7 +91,7 @@ def anomali_search():
             sys.exc_info()
     else:
         ioc_list = open(infile, "r")
-        
+
     if os.path.exists(outfile):
         os.remove(outfile)
     # Open file for writing
@@ -140,7 +140,6 @@ def anomali_search():
             except SystemError:
                 print("Failed to query.")
     print("-------------Results returned in " + outfile + "----------------")
-
 if __name__ == '__main__':
     banner()
     usage()
