@@ -5,6 +5,8 @@ import requests
 import csv
 import configparser
 import os.path
+import pandas as pd
+import plotly.express as px
 VERSION = "0.1"
 
 # Banner
@@ -21,8 +23,8 @@ def banner():
     print(banner)
     print("**********************Anomali Intel Search -v" + VERSION + "**************************")
     # Usage
-    
-    
+
+
 def usage():
         usage = """
         -h --help       Prints this help
@@ -54,7 +56,6 @@ def usage():
         # Anomali Search #
 #####################################
 
-
 def anomali_search():
     # Assign variables to arguments parsed
     outfile = args.o
@@ -62,6 +63,10 @@ def anomali_search():
     limit = args.l
     status = args.s
     conf = args.c
+    source_totals = []  # Initialize lists
+    country_totals = []
+    type_totals = []
+    tag_totals = []
 
     # Config file processing & analysis
     if os.path.exists(args.c):
@@ -103,7 +108,7 @@ def anomali_search():
     with open(outfile, 'w', newline='', encoding="utf-8") as data_file:
         writer = csv.writer(data_file)
         # Write headers
-        header = 'value', 'confidence', 'itype', 'source', 'date_modified', 'status', 'tags'
+        header = 'value', 'confidence', 'itype', 'source', 'date_modified', 'status', 'country', 'tags'
         writer.writerow(header)
         # Parse items in IOC list
         for item in ioc_list:
@@ -125,28 +130,44 @@ def anomali_search():
                         data = result.json()
                         # If no records located - print message and write results to output
                         if not data['objects']:
-                            print("\n" + "-" * 50)
-                            print("[!] No Records Located for " + item)
+                            print("-" * 50)
+                            print("[!] No Records Located for " + item,  end="")
                             print("-" * 50)
                             writer.writerow([item,'','','','','No Results'])
                         else:
                             # If records located - print message and write results to output
+                            print("-" * 50)
+                            print("[" + str(len(data['objects'])) + "] Records located for " + item, end="")
+                            print("-" * 50)
                             for obj in data['objects']:
                                 writer.writerow(
                                 [obj['value'], obj['confidence'], obj['itype'], obj['source'], obj['modified_ts'],
-                                obj['status'],obj['tags']])
-                                item = item.replace("http", "hxxp")
-                                print("\n" + "-" * 50)
-                                print("[!] Records located for " + obj['value'])
-                                print("-" * 50)
+                                obj['status'],obj['country'],obj['tags']])
+                                source_totals.append(obj["source"])
+                                type_totals.append(obj["itype"])
+                                country_totals.append(obj["country"])
                     else:
                         print(
-                            "-------------Failed to connect - check API config info or that site is up----------------")
+                            "\n -------------Failed to connect - check API config info or that site is up----------------")
             except SystemError:
                 print("Failed to query.")
-    print("-------------Results returned in " + outfile + "----------------")
-    
-    
+    print("\n -------------Results returned in " + outfile + "----------------")
+    # Send data for visualizations
+    vis(outfile)
+
+#####################################
+    # Graphing and all that Jazz #
+#####################################
+
+
+def vis(outfile):
+    data_file = pd.read_csv(outfile)
+    fig1 = px.pie(data_file, names=data_file['country'])
+    fig2 = px.pie(data_file, names=data_file['source'])
+    fig3 = px.pie(data_file, names=data_file['itype'])
+    fig1.show(), fig2.show(), fig3.show()
+
+
 if __name__ == '__main__':
     banner()
     usage()
