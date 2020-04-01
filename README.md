@@ -22,7 +22,7 @@ The tool is broken into 3 sections currently
   
   b. Outputs default to ./results.csv and will be overwritten each time the command is executed. Specific outputs can be specified using the -o or --outfile command. 
 
-### Filtering
+## Filtering
 
   a. The limit of results returned can be specified using the -l --limit argument. This defaults to no limit. 
   
