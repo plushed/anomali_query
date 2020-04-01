@@ -1,3 +1,4 @@
+
 import argparse
 import sys
 import requests
@@ -62,7 +63,7 @@ def anomali_search():
         try:
             config = configparser.ConfigParser()
             config.read(conf)
-            # config.sections()
+            # Config.sections()
             # Assigned Anomali variables
             anomali_api = config.get('ANOMALI', 'api_key')
             anomali_user = config.get('ANOMALI', 'user')
@@ -77,7 +78,7 @@ def anomali_search():
     else:
         print("No such file '{}'".format(conf), file=sys.stderr)
         exit()
-        
+
     # Assign keywords to IOC list
     if args.k:
         try:
@@ -93,13 +94,13 @@ def anomali_search():
         
     if os.path.exists(outfile):
         os.remove(outfile)
-
+    # Open file for writing
     with open(outfile, 'w', newline='', encoding="utf-8") as data_file:
         writer = csv.writer(data_file)
-        ## Write headers
+        # Write headers
         header = 'value', 'confidence', 'itype', 'source', 'date_modified', 'status', 'tags'
         writer.writerow(header)
-
+        # Parse items in IOC list
         for item in ioc_list:
             # Define search string based on type
             if args.w:
@@ -109,20 +110,22 @@ def anomali_search():
             else:
                 search_string = "&value=" + item
             try:
+                # Make API call
                 url = requests.get(
                 anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + search_string + "&limit=" + str(
                 limit) + "&status=" + status)
-                print(anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + search_string + "&limit=" + str(
-                limit) + "&status=" + status)
                 with url as result:
+                    # Check web response
                     if result.status_code == 200:
                         data = result.json()
-                        if not data['objects']:  # If no records located - print message, increment not found and add to not found list
+                        # If no records located - print message and write results to output
+                        if not data['objects']:
                             print("\n" + "-" * 50)
                             print("[!] No Records Located for " + item)
                             print("-" * 50)
                             writer.writerow([item,'','','','','No Results'])
                         else:
+                            # If records located - print message and write results to output
                             for obj in data['objects']:
                                 writer.writerow(
                                 [obj['value'], obj['confidence'], obj['itype'], obj['source'], obj['modified_ts'],
@@ -141,9 +144,9 @@ def anomali_search():
 if __name__ == '__main__':
     banner()
     usage()
+    # Arg Parse
     parser = argparse.ArgumentParser()
     group_creation = parser.add_argument_group('Arguments')
-
     group_creation.add_argument('-f', '--list', help='List file with values to search - defaults to input.txt',default='./input.txt', dest="f")
     group_creation.add_argument('-k', '--keyword', help='Keyword search if list is not used', nargs='?', dest="k")
     group_creation.add_argument('-c', '--config', help='Config File', nargs='?', const='./conf/example.conf', required=True, dest="c")
