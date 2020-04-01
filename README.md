@@ -24,7 +24,7 @@ The tool is broken into 3 sections currently
 
   a. The limit of results returned can be specified using the -l --limit argument. This default to no limit. 
   
-  b. The indicator status defaults to "all" but can be filtered for the types, active, inactice, and falsepos. 
+  b. The indicator status defaults to "all" but can be filtered for the types, active, inactive, and falsepos. 
   
 ## Usage
 
