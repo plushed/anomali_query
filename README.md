@@ -13,7 +13,7 @@ The tool is broken into 3 sections currently
 ## Search Methods
   a. The search methods are broken apart into values and tags.  Values are an API call that queries against the value field of the keyworks presented either using the --keyword argument or the default of querying against the --infile or -f. 
   
-  b. Tags can be queried against a list of ketwords as well but instead of pulling results of values they pull results of tags. The tags allow for a wider breath of search if indicators are being tagged to a particular attribute such as campaigns, bulletins or malware
+  b. Tags can be queried against a list of keywords as well but instead of pulling results of values they pull results of tags. The tags allow for a wider breath of search if indicators are being tagged to a particular attribute such as campaigns, bulletins or malware
 
 ## Input / Output
 
@@ -24,7 +24,7 @@ The tool is broken into 3 sections currently
 
 ### Filtering
 
-  a. The limit of results returned can be specified using the -l --limit argument. This default to no limit. 
+  a. The limit of results returned can be specified using the -l --limit argument. This defaults to no limit. 
   
   b. The indicator status defaults to "all" but can be filtered for the types, active, inactive, and falsepos. 
   
