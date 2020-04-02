@@ -1,0 +1,11 @@
+####### requirements.txt #######
+#
+###### Requirements without Version Specifiers ######
+argparse
+sys
+requests
+csv
+configparser
+os.path
+pandas
+plotly.express
