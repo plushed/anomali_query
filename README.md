@@ -32,7 +32,7 @@ The tool is broken into 3 sections currently
 
 Query the keyword example.com for active IOCs returning 10000 results to results.csv
 ```
-python anomali_search.py -c -k example.com -s active -w -l 10000 -o results.csv
+python anomali_search.py -c -v -k example.com -s active -w -l 10000 -o results.csv
 ```
 Query the keyword(s) in ./input.txt (wildcarded) for all IOCs returning unlimited results to results.csv
 ```
