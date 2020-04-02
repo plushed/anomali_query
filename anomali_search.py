@@ -117,7 +117,7 @@ def anomali_search():
             if args.w:
                 search_string = "&value__regexp=.*." + item + ".*"
             elif args.t:
-                search_string = "&tag=" + item
+                search_string = "&tags.name=" + item
             else:
                 search_string = "&value=" + item
             try:
