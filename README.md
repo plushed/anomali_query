@@ -27,17 +27,17 @@ The tool is broken into 3 sections currently
 
 ## Filtering
 
-  a. The limit of results returned can be specified using the -l --limit argument. This defaults to no limit. 
+  a. The limit of results returned can be specified using the -l --limit argument. This defaults to no limit, but the tools restricts results to a max of 1000. 
   
   b. The indicator status defaults to "all" but can be filtered for the types, active, inactive, and falsepos. 
 
 ## Example
 
-Query the keyword example.com for active IOCs returning 10000 results to results.csv
+Query the keyword example.com for active IOCs returning 1000 results to results.csv
 ```
-python anomali_search.py -c -v -k example.com -s active -w -l 10000 -o results.csv
+python anomali_search.py -c -v -k example.com -s active -w -l 1000 -o results.csv
 ```
-Query the keyword(s) in ./input.txt (wildcarded) for all IOCs returning unlimited results to results.csv
+Query the keyword(s) in ./input.txt (wildcarded) for all IOCs returning 1000 results to results.csv
 ```
 python anomali_search.py -c -v -w
 ```
@@ -74,7 +74,7 @@ python anomali_search.py -c -t emotet -s falsepos -l 500 -o output.csv
         -l --limit      Specify the max results you wish to return. Default is no limit
         -s --status     Options are active, inactive and falsepos. Default is all
         
-        Example: python anomali_search.py -c -k example.com -v -s active -w -l 10000 -o results.csv
+        Example: python anomali_search.py -c -k example.com -v -s active -w -l 100 -o results.csv
         Example: python anomali_search.py -c -v -w
         
 usage: anomali_search.py [-h] [-f F] [-k [K]] -c [C] [-o [O]] [-w] [-l L]
