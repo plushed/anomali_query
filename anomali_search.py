@@ -45,7 +45,7 @@ def usage():
         -l --limit      Specify the max results you wish to return. Default is no limit
         -s --status     Options are active, inactive and falsepos. Default is all
         
-        Example: python anomali_search.py -c -k example.com -s active -w -l 10000 -o results.csv
+        Example: python anomali_search.py -c -k example.com -s active -w -l 100 -o results.csv
         Example: python anomali_search.py -c -v -w
         """
         print(usage)
@@ -182,7 +182,7 @@ if __name__ == '__main__':
     group_creation.add_argument('-o', '--outfile', help='Output File - defaults to results.csv', nargs='?',default='./results.csv', dest="o")
     group_creation.add_argument('-g', '--graph', help='Display results in graph', action='store_true', dest="g")
     group_creation.add_argument('-w', '--w', help='Use wildcard search for a more comprehensive search.  If not specified the search will query for the exact value(s)', action='store_true', dest="w")
-    group_creation.add_argument('-l', '--limit', help='Specify the max results you wish to return. Default is no limit.', default='0',dest="l", type=int)
+    group_creation.add_argument('-l', '--limit', help='Specify the max results you wish to return. Default is no limit, but the tool is max 1000.', default='0',dest="l", type=int)
     group_creation.add_argument('-s', '--status',help='Return only certain indicators. Options are active, inactive and falsepos. Default is all.',choices=['active', 'inactive', 'falsepos', ''], default='', dest="s")
     search_type = parser.add_mutually_exclusive_group(required=True)
     search_type.add_argument('-v', '--value', help='Search value specified', action='store_true', dest="v")
