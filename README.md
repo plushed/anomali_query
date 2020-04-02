@@ -63,6 +63,7 @@ python anomali_search.py -c -t emotet -s falsepos -l 500 -o output.csv
         -f --infile     Search a list of keywords or IOCs in a file
         -k --keyword    Specify the keyword you wish to search if a list is not used
         -o --outfile    Specify the output file, otherwise output to results.csv
+        -g --graph      Display exported data in a graph
         
         --------------------------Search Methods----------------------------
         -v --value      Search specific keywords or IOCs     
@@ -73,7 +74,7 @@ python anomali_search.py -c -t emotet -s falsepos -l 500 -o output.csv
         -l --limit      Specify the max results you wish to return. Default is no limit
         -s --status     Options are active, inactive and falsepos. Default is all
         
-        Example: python anomali_search.py -c -k example.com -s active -w -l 10000 -o results.csv
+        Example: python anomali_search.py -c -k example.com -v -s active -w -l 10000 -o results.csv
         Example: python anomali_search.py -c -v -w
         
 usage: anomali_search.py [-h] [-f F] [-k [K]] -c [C] [-o [O]] [-w] [-l L]
