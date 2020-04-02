@@ -4,9 +4,12 @@ Query Anomali data for values and indicators.
 
 ## Requirements
 
-This script is coded for Python 3
+This script works best on python 3.7.  The latest version (3.8) works fine but pip gets finicky with one of the prereqs for graphing options.
 
 The config file default is ./conf/example.conf and must contain the username and API key for the Anomali query.  If a proxy is present, the proxy information and credentials can be appended to the config file as well.
+
+### Setup
+```pip install -r requirements.txt```
 
 The tool is broken into 3 sections currently
 
