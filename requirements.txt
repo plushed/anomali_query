@@ -2,10 +2,11 @@
 #
 ###### Requirements without Version Specifiers ######
 argparse
-sys
+os-sys
 requests
-csv
+python-csv
 configparser
-os.path
+os.path2
 pandas
 plotly.express
+
