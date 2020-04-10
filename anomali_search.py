@@ -101,7 +101,7 @@ def anomali_search():
         except:
             sys.exc_info()
     else:
-        ioc_list = open(infile, "r")
+        ioc_list = open(infile, "r", newline='')
 
     if os.path.exists(outfile):
         os.remove(outfile)
@@ -113,9 +113,11 @@ def anomali_search():
         writer.writerow(header)
         # Parse items in IOC list
         for item in ioc_list:
+            # Strips newline from file reader, otherwise it gets appended to the requests.get
+            item = item.strip()
             # Define search string based on type
             if args.w:
-                search_string = "&value__regexp=.*." + item + ".*"
+                search_string = "&value__regexp=.*." + item
             elif args.t:
                 search_string = "&tags.name=" + item
             else:
@@ -123,8 +125,7 @@ def anomali_search():
             try:
                 # Make API call
                 url = requests.get(
-                anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + search_string + "&limit=" + str(
-                limit) + "&status=" + status)
+                anomali_url + "api_key=" + anomali_api + "&username=" + anomali_user + "&limit=" + str(limit) + "&status=" + status + search_string)
                 with url as result:
                     # Check web response
                     if result.status_code == 200:
