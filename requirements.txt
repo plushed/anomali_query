@@ -2,7 +2,7 @@ beautifulsoup4==4.8.2
 idna==2.9
 kiwisolver==1.1.0
 matplotlib==3.2.1
-numpy==1.18.2
+numpy==1.22.0
 pandas==1.0.3
 plotly==4.6.0
 pyparsing==2.4.6
